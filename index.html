@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Toolkit</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+<img src="logo.png" class="logo">
+<h2>Student Toolkit</h2>
+
+<div class="nav-menu">
+<button onclick="showSection('gpa')">GPA Calculator</button>
+<button onclick="showSection('timer')">Study Timer</button>
+
+<label class="switch">
+<input type="checkbox" onclick="toggleDarkMode()">
+<span>Dark Mode</span>
+</label>
+</div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h3>Upcoming Events</h3>
+
+<div class="event">Assignment Due - Friday</div>
+<div class="event">Exam - Monday</div>
+<div class="event">Project Demo - Next Week</div>
+
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+<!-- GPA CALCULATOR -->
+<div id="gpa" class="section">
+
+<h2>GPA Calculator</h2>
+
+<input id="credits1" placeholder="Course Credits">
+<input id="grade1" placeholder="Grade Point">
+
+<input id="credits2" placeholder="Course Credits">
+<input id="grade2" placeholder="Grade Point">
+
+<button onclick="calculateGPA()">Calculate</button>
+
+<p id="gpaResult"></p>
+
+</div>
+
+
+<!-- STUDY TIMER -->
+<div id="timer" class="section">
+
+<h2>Pomodoro Study Timer</h2>
+
+<h1 id="time">25:00</h1>
+
+<button onclick="startTimer()">Start</button>
+<button onclick="resetTimer()">Reset</button>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
