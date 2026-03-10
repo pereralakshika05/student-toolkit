@@ -1,52 +1,142 @@
-function showSection(section){
+function showSection(section,btn){
 
-document.getElementById("gpa").style.display="none";
-document.getElementById("timer").style.display="none";
+document.querySelectorAll(".app-section")
+.forEach(s=>s.classList.remove("active"));
 
-document.getElementById(section).style.display="block";
+document.querySelectorAll(".nav-btn")
+.forEach(b=>b.classList.remove("active"));
+
+document.getElementById("section-"+section).classList.add("active");
+
+btn.classList.add("active");
 
 }
 
+/* IDEA BOARD */
+
+let ideas=[];
+
+function addIdea(){
+
+let name=document.getElementById("name").value;
+
+let idea=document.getElementById("idea").value;
+
+if(!name||!idea)return;
+
+ideas.push({name,idea});
+
+renderIdeas();
+
+}
+
+function renderIdeas(){
+
+let list=document.getElementById("ideas-list");
+
+list.innerHTML="";
+
+ideas.forEach(i=>{
+
+let div=document.createElement("div");
+
+div.className="idea-card";
+
+div.innerHTML=`<b>${i.name}</b>: ${i.idea}`;
+
+list.appendChild(div);
+
+});
+
+}
+
+/* GPA */
+
+function addRow(){
+
+let row=`
+<tr>
+<td><input placeholder="Course"></td>
+<td><input class="credits" type="number"></td>
+<td>
+<select class="grade">
+<option value="4">A</option>
+<option value="3">B</option>
+<option value="2">C</option>
+<option value="1">D</option>
+<option value="0">F</option>
+</select>
+</td>
+</tr>
+`;
+
+document.getElementById("gpa-rows").innerHTML+=row;
+
+}
 
 function calculateGPA(){
 
-let c1 = Number(document.getElementById("credits1").value);
-let g1 = Number(document.getElementById("grade1").value);
+let credits=document.querySelectorAll(".credits");
 
-let c2 = Number(document.getElementById("credits2").value);
-let g2 = Number(document.getElementById("grade2").value);
+let grades=document.querySelectorAll(".grade");
 
-let totalCredits = c1 + c2;
+let totalCredits=0;
 
-let gpa = ((c1*g1)+(c2*g2))/totalCredits;
+let totalPoints=0;
 
-document.getElementById("gpaResult").innerText = "Your GPA: " + gpa.toFixed(2);
+credits.forEach((c,i)=>{
+
+let credit=parseFloat(c.value);
+
+let grade=parseFloat(grades[i].value);
+
+if(!isNaN(credit)){
+
+totalCredits+=credit;
+
+totalPoints+=credit*grade;
 
 }
 
+});
+
+if(totalCredits===0)return;
+
+let gpa=totalPoints/totalCredits;
+
+document.getElementById("gpa-result").innerText="GPA: "+gpa.toFixed(2);
+
+}
 
 /* TIMER */
 
-let time = 1500;
-let timer = null;
+let seconds=1500;
+
+let interval=null;
 
 function startTimer(){
 
-if(timer !== null) return;
+if(interval)return;
 
-timer = setInterval(function(){
+interval=setInterval(()=>{
 
-let minutes = Math.floor(time/60);
-let seconds = time % 60;
+let m=Math.floor(seconds/60);
 
-document.getElementById("time").innerText =
-minutes + ":" + (seconds<10?"0":"") + seconds;
+let s=seconds%60;
 
-time--;
+document.getElementById("timer-display").textContent=
+m+":"+(s<10?"0":"")+s;
 
-if(time < 0){
-clearInterval(timer);
-alert("Time's Up!");
+seconds--;
+
+if(seconds<0){
+
+clearInterval(interval);
+
+interval=null;
+
+alert("Time's up!");
+
 }
 
 },1000);
@@ -55,18 +145,20 @@ alert("Time's Up!");
 
 function resetTimer(){
 
-clearInterval(timer);
-timer=null;
-time=1500;
-document.getElementById("time").innerText="25:00";
+clearInterval(interval);
+
+interval=null;
+
+seconds=1500;
+
+document.getElementById("timer-display").textContent="25:00";
 
 }
-
 
 /* DARK MODE */
 
 function toggleDarkMode(){
 
-document.body.classList.toggle("dark");
+document.body.classList.toggle("dark-mode");
 
 }
