@@ -1,0 +1,76 @@
+body{
+font-family: Arial;
+margin:0;
+background:white;
+transition:0.3s;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#800000;
+color:white;
+padding:10px 20px;
+}
+
+.logo{
+height:40px;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:200px;
+background:#f5f5f5;
+position:fixed;
+top:60px;
+bottom:0;
+padding:15px;
+}
+
+.event{
+padding:10px;
+margin:10px 0;
+background:white;
+transition:0.3s;
+}
+
+.event:hover{
+transform:scale(1.05);
+box-shadow:0 0 10px gold;
+}
+
+/* MAIN CONTENT */
+
+.content{
+margin-left:220px;
+padding:20px;
+}
+
+.section{
+animation:fadeIn 1s;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* DARK MODE */
+
+.dark{
+background:#222;
+color:white;
+}
+
+.dark .sidebar{
+background:#333;
+}
+
+.dark .event{
+background:#444;
+color:white;
+}
